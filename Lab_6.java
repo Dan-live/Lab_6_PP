@@ -31,7 +31,7 @@ class VectorBuffer {
     private int ind1, ind2;
     public static int full_break = 0;
     public static int empty_break = 0;
-    public static int num_of_operations = 3;
+    public static int num_of_operations = 70;
     public static VectorBuffer buff = new VectorBuffer();
 
     VectorBuffer() {
@@ -70,12 +70,21 @@ class VectorBuffer {
 
 class P1 extends Thread
 {
-    
-    private CyclicBarrier br;
     int num ;
-    P1() 
+    // private P2 thread2;
+    // private P3 thread3;
+    // private P4 thread4;
+    // private P5 thread5;
+    // private P6 thread6;
+
+    P1(/*P2 thread2, P3 thread3, P4 thread4, P5 thread5, P6 thread6*/) 
     {
         super("P1");
+        // this.thread2 = thread2;
+        // this.thread3 = thread3;
+        // this.thread4 = thread4;
+        // this.thread5 = thread5;
+        // this.thread6 = thread6;
         start();
     }
     public void run() 
@@ -84,31 +93,28 @@ class P1 extends Thread
         while(true)
         {
             if (VectorBuffer.buff.isExit() || VectorBuffer.num_of_operations <= 0) break;
-            System.out.println("Thread 1 get value " + VectorBuffer.buff.Get() + " from CR1\n");
-            if(VectorBuffer.buff.isExit()) VectorBuffer.empty_break++;
-            VectorBuffer.num_of_operations--;
-
+            if(!VectorBuffer.buff.isEmpty())
+            {
+                System.out.println("Thread 1 get value " + VectorBuffer.buff.Get() + " from CR1\n");
+                if(VectorBuffer.buff.isExit()) VectorBuffer.empty_break++;
+                VectorBuffer.num_of_operations--;
+            }
             try {
-                Thread.sleep(500);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
         }
 
-        // P2 thread2 = new P2();
         // thread2.interrupt();
         // System.out.println("p1| p2 canceled\n");
-        // P3 thread3 = new P3(br);
         // thread3.interrupt();
         // System.out.println("p1| p3 canceled\n");
-        // P4 thread4 = new P4();
         // thread4.interrupt();
         // System.out.println("p1| p4 canceled\n");
-        // P5 thread5 = new P5();
         // thread5.interrupt();
         // System.out.println("p1| p5 canceled\n");
-        // P6 thread6 = new P6(br);
         // thread6.interrupt();
         // System.out.println("p1| p6 canceled\n");
 
@@ -117,8 +123,6 @@ class P1 extends Thread
 
 class P2 extends Thread
 {
-    private static VectorBuffer buff = new VectorBuffer();
-    private CyclicBarrier br;
     P2() 
     {
         super("P2");
@@ -129,7 +133,7 @@ class P2 extends Thread
         System.out.println("Thread 2 is started\n");
         while(true)
         {
-            if (buff.isExit() || VectorBuffer.num_of_operations <= 0) break;
+            if (VectorBuffer.buff.isExit() || VectorBuffer.num_of_operations <= 0) break;
             //повна синхронізація Sem1 + Sem2
 
             System.out.println("\nThread_2 opens semaphore thread_sem2 for the Thread_3");
@@ -153,27 +157,11 @@ class P2 extends Thread
 
             //поклав 
             Random rand = new Random();
-            int num = rand.nextInt(1000);
-            buff.Set(num);
-            System.out.println("Thread 2 set value " + num + " to CR1\n");
-            if(buff.isExit()) VectorBuffer.full_break++;
+            System.out.println("Thread 2 set value " + VectorBuffer.buff.Set(rand.nextInt(1000)) + " to CR1\n");
+            if(VectorBuffer.buff.isExit()) VectorBuffer.full_break++;
             VectorBuffer.num_of_operations--;
         }
-        // P1 thread1 = new P1();
-        // thread1.interrupt();
-        // System.out.println("p2| p1 canceled\n");
-        // P3 thread3 = new P3(br);
-        // thread3.interrupt();
-        // System.out.println("p2| p3 canceled\n");
-        // P4 thread4 = new P4();
-        // thread4.interrupt();
-        // System.out.println("p2| p4 canceled\n");
-        // P5 thread5 = new P5();
-        // thread5.interrupt();
-        // System.out.println("p2| p5 canceled\n");
-        // P6 thread6 = new P6(br);
-        // thread6.interrupt();
-        // System.out.println("p2| p6 canceled\n");
+
     }
 
 
@@ -181,7 +169,7 @@ class P2 extends Thread
 
 class P3 extends Thread
 {
-    private static VectorBuffer buff = new VectorBuffer();
+
     private CyclicBarrier br;
     P3(CyclicBarrier brInit) 
     {
@@ -194,7 +182,7 @@ class P3 extends Thread
         System.out.println("Thread 3 is started");
         while(true)
         {
-            if (buff.isExit() || VectorBuffer.num_of_operations <= 0) break;
+            if (VectorBuffer.buff.isExit() || VectorBuffer.num_of_operations <= 0) break;
 
             //модивікація змінних
             
@@ -255,27 +243,13 @@ class P3 extends Thread
               VectorBuffer.num_of_operations--;
 
         }
-        // P1 thread1 = new P1();
-        // thread1.interrupt();
-        // System.out.println("p3| p1 canceled\n");
-        // P2 thread2 = new P2();
-        // thread2.interrupt();
-        // System.out.println("p3| p2 canceled\n");
-        // P4 thread4 = new P4();
-        // thread4.interrupt();
-        // System.out.println("p3| p4 canceled\n");
-        // P5 thread5 = new P5();
-        // thread5.interrupt();
-        // System.out.println("p3| p5 canceled\n");
-        // P6 thread6 = new P6(br);
-        // thread6.interrupt();
-        // System.out.println("p3| p6 canceled\n");
+
     }
 }
 
 class P4 extends Thread
 {
-    //private static VectorBuffer buff = new VectorBuffer();
+
     private CyclicBarrier br;
     int num ;
     P4() 
@@ -289,39 +263,21 @@ class P4 extends Thread
         while(true)
         {
             if (VectorBuffer.buff.isExit() || VectorBuffer.num_of_operations <= 0) break;
-            System.out.println("Thread 4 get value " +  VectorBuffer.buff.Get() + " from CR1\n");
-            if(VectorBuffer.buff.isExit()) VectorBuffer.empty_break++;
-            VectorBuffer.num_of_operations--;
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            if(!VectorBuffer.buff.isEmpty())
+            {
+                System.out.println("Thread 4 get value " +  VectorBuffer.buff.Get() + " from CR1\n");
+                if(VectorBuffer.buff.isExit()) VectorBuffer.empty_break++;
+                VectorBuffer.num_of_operations--;
             }
 
         }
 
-        // P1 thread1 = new P1();
-        // thread1.interrupt();
-        // System.out.println("p4| p1 canceled\n");
-        // P2 thread2 = new P2();
-        // thread2.interrupt();
-        // System.out.println("p4| p2 canceled\n");
-        // P3 thread3 = new P3(br);
-        // thread3.interrupt();
-        // System.out.println("p4| p3 canceled\n");
-        // P5 thread5 = new P5();
-        // thread5.interrupt();
-        // System.out.println("p4| p5 canceled\n");
-        // P6 thread6 = new P6(br);
-        // thread6.interrupt();
-        // System.out.println("p4| p6 canceled\n");
+
     }
 }
 
 class P5 extends Thread
 {
-    private static VectorBuffer buff = new VectorBuffer();
-    private CyclicBarrier br;
     P5() 
     {
         super("P5");
@@ -332,35 +288,19 @@ class P5 extends Thread
         System.out.println("Thread 5 is started\n");
         while(true)
         {
-            if (buff.isExit() || VectorBuffer.num_of_operations <= 0) break;
+            if (VectorBuffer.buff.isExit() || VectorBuffer.num_of_operations <= 0) break;
             Random rand = new Random();
-            int num = rand.nextInt(1000);
-            buff.Set(num);
-            System.out.println("Thread 5 set value " + num + " to CR1\n");
-            if(buff.isExit()) VectorBuffer.full_break++;
+            System.out.println("Thread 5 set value " + VectorBuffer.buff.Set(rand.nextInt(1000)) + " to CR1\n");
+            if(VectorBuffer.buff.isExit()) VectorBuffer.full_break++;
             VectorBuffer.num_of_operations--;
         }
-        // P1 thread1 = new P1();
-        // thread1.interrupt();
-        // System.out.println("p5| p1 canceled\n");
-        // P2 thread2 = new P2();
-        // thread2.interrupt();
-        // System.out.println("p5| p2 canceled\n");
-        // P3 thread3 = new P3(br);
-        // thread3.interrupt();
-        // System.out.println("p5| p3 canceled\n");
-        // P4 thread4 = new P4();
-        // thread4.interrupt();
-        // System.out.println("p5| p4 canceled\n");
-        // P6 thread6 = new P6(br);
-        // thread6.interrupt();
-        // System.out.println("p5| p6 canceled\n");
+
     }
 }
 
 class P6 extends Thread
 {
-    private static VectorBuffer buff = new VectorBuffer();
+
     
     private CyclicBarrier br;
     P6(CyclicBarrier brInit) 
@@ -374,7 +314,7 @@ class P6 extends Thread
         System.out.println("Thread 6 is started\n");
         while(true)
         {
-            if (buff.isExit() || VectorBuffer.num_of_operations <= 0) break;
+            if (VectorBuffer.buff.isExit() || VectorBuffer.num_of_operations <= 0) break;
             
             //циклічний бар'єр
             System.out.println("\nThread_2  waits until Thread_1 reaches synchronization point");
@@ -403,26 +343,11 @@ class P6 extends Thread
             VectorBuffer.num_of_operations--;
         }
         
-        // P1 thread1 = new P1();
-        // thread1.interrupt();
-        // System.out.println("p6| p1 canceled\n");
-        // P2 thread2 = new P2();
-        // thread2.interrupt();
-        // System.out.println("p6| p2 canceled\n");
-        // P3 thread3 = new P3(br);
-        // thread3.interrupt();
-        // System.out.println("p6| p3 canceled\n");
-        // P4 thread4 = new P4();
-        // thread4.interrupt();
-        // System.out.println("p6| p4 canceled\n");
-        // P5 thread5 = new P5();
-        // thread5.interrupt();
-        // System.out.println("p6| p5 canceled\n");
+
     }
 }
 
 class Main {
-    //private static VectorBuffer buff = new VectorBuffer();
     private static  CyclicBarrier br = new CyclicBarrier(2);
 
     public static void main(String[] args) {
@@ -435,12 +360,14 @@ class Main {
 
         System.out.println("Array filled by elements from 0-th to " + (first_length - 1)+ "\n");
 
-        P1 thread1 = new P1();
+        P1 thread1 = new P1(/*thread2, thread3, thread4, thread5, thread6*/);
         P2 thread2 = new P2();
         P3 thread3 = new P3(br);
         P4 thread4 = new P4();
         P5 thread5 = new P5();
         P6 thread6 = new P6(br);
+        
+     
 
         try
         {
@@ -455,9 +382,5 @@ class Main {
         {
             System.out.println("Main thred intrerapted");
         }
-
-
-
-
     }
 }
