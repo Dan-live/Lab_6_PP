@@ -1,2 +1,6 @@
 ![Снимок экрана 2023-05-15 005710](https://github.com/Dan-live/Lab_6_PP/assets/109356212/9a2ec43a-254a-4b5f-8e0b-28d53c18e487)
 ![image](https://github.com/Dan-live/Lab_6_PP/assets/109356212/fafcacbc-1443-4a7f-8423-ef39b017827f)
+![image](https://github.com/Dan-live/Lab_6_PP/assets/109356212/7da0d23d-ce8f-46cb-a178-bbe743387c0e)
+![image](https://github.com/Dan-live/Lab_6_PP/assets/109356212/707d32be-f400-4296-a457-ce011868231d)
+![image](https://github.com/Dan-live/Lab_6_PP/assets/109356212/895b62ad-cf0f-44a1-89a2-cfc4d103422d)
+![image](https://github.com/Dan-live/Lab_6_PP/assets/109356212/f1fbc6ab-c56b-4fab-81f1-a2bc363398aa)
