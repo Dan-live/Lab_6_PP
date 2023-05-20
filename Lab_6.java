@@ -42,10 +42,10 @@ class VectorBuffer {
    // private Elem[] vec = new Elem[SIZE];
     private int[] buff;
     private int ind1, ind2;
-    public static int full_break = 0;
-    public static int empty_break = 0;
-    public static int elementsQuantity = 0;
-    public static int num_of_operations = 70;
+    public static int full_break;
+    public static int empty_break;
+    public static int elementsQuantity;
+    //public static int num_of_operations = 70;
     //public static int buff = new VectorBuffer();
 
     VectorBuffer() {
@@ -66,15 +66,16 @@ class VectorBuffer {
         return ind2 <= 0;
     }
 
+    // boolean ValueSet = false;
     synchronized void Set(int data, String str) {
-        while(elementsQuantity == buff.length){
+       
+        while(elementsQuantity == buff.length ){
             try {
                 wait();
             } catch (InterruptedException e) {
                 System.out.println("Producer error: " + e);
             }
         }
-
         buff[ind1] = data;
         
 
@@ -86,6 +87,7 @@ class VectorBuffer {
         elementsQuantity++;
         if(ind1 == 0) full_break++;
         notify();
+
     }
 
     synchronized void Get(String str) {
@@ -97,10 +99,10 @@ class VectorBuffer {
                 System.out.println("Consumer error: " + e);
             }
         }
-        System.out.println("Consumer " + str +" get in buffer[" + ind2 + "] value: " + buff[ind2] + "\n");
+        System.out.println("Consumer " + str +" get from buffer[" + ind2 + "] value: " + buff[ind2] + "\n");
         
         //int result = vec[(ind1 - ind2 + 1 + SIZE) % SIZE].data;
-        ind2 = (ind2 + 1) % SIZE;
+        ind2 = (ind2 + 1) % buff.length;
         elementsQuantity--; 
         if(ind2 == 0) empty_break++;
 
@@ -240,11 +242,11 @@ class P2 extends Thread
 class P3 extends Thread
 {
 
-    private CyclicBarrier br;
-    P3(CyclicBarrier brInit) 
+    //private CyclicBarrier br;
+    P3(/*CyclicBarrier brInit*/) 
     {
         super("P3");
-        br = brInit;
+        //br = brInit;
         start();
     }
     public void run() 
@@ -270,7 +272,7 @@ class P3 extends Thread
             try
             {
               /* Потік 2 чекає, доки потік 1 дійде до точки синхронізації */  
-              br.await();
+             Barrier.br.await();
               
             }catch(InterruptedException e)
                 {
@@ -410,11 +412,11 @@ class P6 extends Thread
 {
 
 
-    private CyclicBarrier br;
-    P6(CyclicBarrier brInit) 
+    //private CyclicBarrier br;
+    P6(/*CyclicBarrier brInit*/) 
     {
         super("P6");
-        br = brInit;
+        //br = brInit;
         start();
     }
     public void run() 
@@ -429,7 +431,7 @@ class P6 extends Thread
             try
             {
               /* Потік 2 чекає, доки потік 1 дійде до точки синхронізації */  
-              br.await();
+              Barrier.br.await();
               
             }catch(InterruptedException e)
                 {
@@ -452,13 +454,13 @@ class P6 extends Thread
 
         }
         
-        
         if (!Barrier.br.isBroken()){
             Barrier.br.reset();
         }
         SharedSemaphore.thread_sem1.release();
         SharedSemaphore.thread_sem1.release();
         System.out.println("P6 finished!\n");
+
     }
 }
 
@@ -486,10 +488,10 @@ class Main {
             VectorBuffer CR1 = new VectorBuffer();
             P1 thread1 = new P1(CR1);
             P2 thread2 = new P2(CR1);
-            P3 thread3 = new P3(Barrier.br);
+            P3 thread3 = new P3(/*Barrier.br*/);
             P4 thread4 = new P4(CR1);
             P5 thread5 = new P5(CR1);
-            P6 thread6 = new P6(Barrier.br);
+            P6 thread6 = new P6(/*Barrier.br*/);
 
             thread1.join();
             thread2.join();
