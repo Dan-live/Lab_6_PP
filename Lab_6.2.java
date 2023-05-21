@@ -1,19 +1,21 @@
 package Lab_6_2try;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Files;
-import java.nio.Buffer;
-import java.nio.file.FileSystems;
+// import java.nio.file.Path;
+// import java.nio.file.Files;
+// import java.nio.Buffer;
+// import java.nio.file.FileSystems;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.locks.*;
-import java.util.Random;
+// import java.util.Random;
 class Barrier 
 {
     public static  CyclicBarrier br = new CyclicBarrier(2);
 }
+
+
 class SharedSemaphore
 {
 	/* Ініціалізація семафорів */
@@ -22,7 +24,6 @@ class SharedSemaphore
 }
 
 class CR2{
-    //public static int sum = 0;
     public static byte CR2_byte = 12;
     public static short CR2_short = 200;
     public static int CR2_int = 1800;
@@ -31,43 +32,26 @@ class CR2{
     public static double CR2_double = 18.9;
     public static boolean CR2_boolean = true;
     public static char CR2_char = 'c';
-    //public static int n = 0;
-
-    //public static ReentrantLock mutex = new ReentrantLock();
+    ReentrantLock mutex = new ReentrantLock();
 }
 
 class VectorBuffer {
     private static final int SIZE = 15;
-   // private Elem[] vec = new Elem[SIZE];
     private int[] buff;
     private int ind1, ind2;
     public static int full_break;
     public static int empty_break;
     public static int elementsQuantity;
     private final FileWriter file;
-    //public static int num_of_operations = 70;
-    //public static int buff = new VectorBuffer();
 
     VectorBuffer(FileWriter file) {
-        // for (int i = 0; i < SIZE; i++) {
-        //     vec[i] = new Elem();
-        // }
+        buff = new int[SIZE];
         ind1 = 0;
         ind2 = 0;
         elementsQuantity = 0;
-        buff = new int[SIZE];
         this.file = file;
     }
 
-    boolean isFull() {
-        return ind2 >= SIZE;
-    }
-
-    boolean isEmpty() {
-        return ind2 <= 0;
-    }
-
-    // boolean ValueSet = false;
     synchronized void Set(String str) {
        
         while(elementsQuantity == buff.length ){
@@ -82,8 +66,7 @@ class VectorBuffer {
 
         buff[ind1] = num;
         
-
-        //System.out.println("Producer " + str +" in write to buffer[" + ind1 + "] value: " + data + "\n");
+        
         try {
             file.write("Producer " + str + " in write to buffer[" + ind1 + "] value: " + num + "\n");
         } catch (IOException e) {
@@ -107,19 +90,19 @@ class VectorBuffer {
                 System.out.println("Consumer error: " + e);
             }
         }
-        //System.out.println("Consumer " + str +" get from buffer[" + ind2 + "] value: " + buff[ind2] + "\n");
+        
         try {
             file.write("Consumer " + str + " get in buffer[" + ind2 + "] value: " + buff[ind2] + "\n");
         } catch (IOException e) {
             System.out.println("Consumer error: " + e);
         }
-        //int result = vec[(ind1 - ind2 + 1 + SIZE) % SIZE].data;
+        
         ind2 = (ind2 + 1) % buff.length;
         elementsQuantity--; 
         if(ind2 == 0) empty_break++;
 
         notify();
-        //return vec[ind2];
+        
     }
 
     public static boolean isExit() {
@@ -170,7 +153,6 @@ class P1 implements Runnable
 
 class P2 implements Runnable
 {
-
     private final VectorBuffer CR1;
     private final Thread thread;
     private final FileWriter file;
@@ -189,7 +171,7 @@ class P2 implements Runnable
     public void run() {
         while (!VectorBuffer.isExit()){
             try {
-                SharedSemaphore.thread_sem1.release();
+                SharedSemaphore.thread_sem2.release();
                 file.write(thread.getName() + " opens semaphore SR2 for the Thread3\n");
 
                 SharedSemaphore.thread_sem1.acquire();
@@ -229,7 +211,7 @@ class P3 implements Runnable
         this.mutex = mutex;
         this.file = file;
 
-        thread = new Thread(this, "P1");
+        thread = new Thread(this, "P3");
         thread.start();
     }
     public Thread getThread(){
@@ -242,8 +224,8 @@ class P3 implements Runnable
             try {
                 mutex.lock();
                 CR2.CR2_byte = (byte)(CR2.CR2_byte + 3);
-                CR2.CR2_short = (short)(CR2.CR2_byte + 10);
-                CR2.CR2_int += 108;
+                CR2.CR2_short = (short)(CR2.CR2_byte + 11);
+                CR2.CR2_int += 99;
                 file.write(thread.getName() + " modified CR2_byte, CR2_short, CR2_int\n");
                 mutex.unlock();
 
@@ -266,6 +248,16 @@ class P3 implements Runnable
             } catch (BrokenBarrierException e){
                 break;
             }
+        }
+        if (!Barrier.br.isBroken()){
+            Barrier.br.reset();
+        }
+        SharedSemaphore.thread_sem1.release();
+        SharedSemaphore.thread_sem2.release();
+        try {
+            file.write(thread.getName()  + " finished!\n");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -359,7 +351,7 @@ class P6 implements Runnable
         this.mutex = mutex;
         this.file = file;
 
-        thread = new Thread(this, "Thread6");
+        thread = new Thread(this, "P6");
         thread.start();
     }
     public Thread getThread(){
@@ -412,9 +404,10 @@ class Main
     {
         try{
             FileWriter file = new FileWriter("log/result.log");
-            ReentrantLock mutex = new ReentrantLock();
-            VectorBuffer CR1 = new VectorBuffer(file);
             
+            VectorBuffer CR1 = new VectorBuffer(file);
+            //CR2 cr2 = new CR2();
+            ReentrantLock mutex = new ReentrantLock();
 
             P1 thread1 = new P1(CR1, file);
             P2 thread2 = new P2(CR1, file);
