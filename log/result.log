@@ -1,0 +1,133 @@
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Producer P2 in write to buffer[0] value: 5
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Consumer P1 get in buffer[0] value: 5
+Producer P2 in write to buffer[1] value: 70
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Producer P2 in write to buffer[2] value: 15
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Producer P2 in write to buffer[3] value: 7
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Producer P2 in write to buffer[4] value: 23
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Producer P2 in write to buffer[5] value: 53
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Producer P2 in write to buffer[6] value: 97
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Producer P2 in write to buffer[7] value: 25
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Producer P2 in write to buffer[8] value: 85
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Producer P2 in write to buffer[9] value: 50
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Producer P2 in write to buffer[10] value: 46
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Producer P2 in write to buffer[11] value: 89
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Producer P2 in write to buffer[12] value: 49
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Producer P2 in write to buffer[13] value: 27
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Producer P2 in write to buffer[14] value: 40
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Producer P2 in write to buffer[0] value: 45
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Consumer P1 get in buffer[1] value: 70
+Consumer P1 get in buffer[2] value: 15
+Consumer P1 get in buffer[3] value: 7
+Consumer P1 get in buffer[4] value: 23
+Consumer P1 get in buffer[5] value: 53
+Consumer P1 get in buffer[6] value: 97
+Consumer P1 get in buffer[7] value: 25
+Consumer P1 get in buffer[8] value: 85
+Consumer P1 get in buffer[9] value: 50
+Consumer P1 get in buffer[10] value: 46
+Consumer P1 get in buffer[11] value: 89
+Consumer P1 get in buffer[12] value: 49
+Consumer P1 get in buffer[13] value: 27
+Consumer P1 get in buffer[14] value: 40
+Consumer P1 get in buffer[0] value: 45
+Producer P2 in write to buffer[1] value: 90
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Producer P2 in write to buffer[2] value: 92
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Producer P2 in write to buffer[3] value: 96
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Producer P2 in write to buffer[4] value: 92
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Producer P2 in write to buffer[5] value: 38
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Producer P2 in write to buffer[6] value: 29
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Producer P2 in write to buffer[7] value: 55
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Producer P2 in write to buffer[8] value: 41
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Producer P2 in write to buffer[9] value: 43
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Producer P2 in write to buffer[10] value: 47
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Producer P2 in write to buffer[11] value: 54
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Producer P2 in write to buffer[12] value: 27
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Producer P2 in write to buffer[13] value: 71
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Producer P2 in write to buffer[14] value: 6
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Producer P2 in write to buffer[0] value: 44
+P2 opens semaphore SR2 for the Thread3
+P2 works AFTER synchronization point
+Consumer P1 get in buffer[1] value: 90
+Consumer P1 get in buffer[2] value: 92
+Consumer P1 get in buffer[3] value: 96
+Consumer P1 get in buffer[4] value: 92
+Consumer P1 get in buffer[5] value: 38
+Consumer P1 get in buffer[6] value: 29
+Consumer P1 get in buffer[7] value: 55
+Consumer P1 get in buffer[8] value: 41
+Consumer P1 get in buffer[9] value: 43
+Consumer P1 get in buffer[10] value: 47
+Consumer P1 get in buffer[11] value: 54
+Consumer P1 get in buffer[12] value: 27
+Consumer P1 get in buffer[13] value: 71
+Consumer P1 get in buffer[14] value: 6
+Producer P2 in write to buffer[1] value: 79
+P1 modified CR2_byte, CR2_short, CR2_int
+P1 finished!
+P2 finished!
+P5 finished!
+P4 finished!
+Thread6 finished!
+Main finished
